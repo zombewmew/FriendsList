@@ -12,12 +12,20 @@ class FriendsListView: UIViewController, UITableViewDelegate {
     
     var safeArea: UILayoutGuide!
     var presenter: ViewToPresenterProtocol?
+    var dataProvider: DataProvider?
     let def = UserDefaults.standard
     
     var friendArrayList: Array<UserModel> = Array()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(dataProvider)
+        
+        //let context = dataProvider?.persistentContainer.viewContext
+        
+        /*guard let context = dataProvider?.persistentContainer.viewContext else {
+            return
+        }*/
         
         checkDataTime()
         
@@ -25,7 +33,7 @@ class FriendsListView: UIViewController, UITableViewDelegate {
         safeArea = view.layoutMarginsGuide
         
         self.title = "Friends"
-        
+        presenter?.dataProvider = dataProvider
         presenter?.startFetching()
 
         setupTableView()
@@ -42,13 +50,13 @@ class FriendsListView: UIViewController, UITableViewDelegate {
 
             if let dateExpired = dateFormatter.date(from: op!) {
                 if dateExpired < now {
-                    print("update data time expired")
+                    print("update data's time expired")
                     def.set(Date().addingTimeInterval(300), forKey: "opened")
                 }
             }
             
         } else {
-            print("set dite's time expired")
+            print("set data's time expired")
             let date = Date().addingTimeInterval(300)
             
             let dateFormatter = DateFormatter()

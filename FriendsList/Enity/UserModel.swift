@@ -25,6 +25,7 @@ struct UserModel: Decodable {
     let registered: String
     let latitude, longitude: Double
     let tags: [String]
+    //let friends: [String]
     let friends: [FriendModel]
     let favoriteFruit: String
 }

@@ -16,7 +16,10 @@ class FriendsListPresenter: ViewToPresenterProtocol {
     
     var router: PresenterToRouterProtocol?
     
+    var dataProvider: DataProvider?
+    
     func startFetching() {
+        interactor?.dataProvider = dataProvider
         interactor?.fetch()
     }
     

@@ -13,6 +13,7 @@ protocol ViewToPresenterProtocol: class {
     var view: PresenterToViewProtocol? { get set }
     var interactor: PresenterToInteractorProtocol? { get set }
     var router: PresenterToRouterProtocol? { get set }
+    var dataProvider: DataProvider? { get set }
     
     func startFetching()
     func showUserProfileView(navigationController: UINavigationController, user: UserModel)
@@ -35,5 +36,6 @@ protocol PresenterToRouterProtocol: class {
 
 protocol PresenterToInteractorProtocol: class {
     var presenter: InteractorToPresenterProtocol? { get set }
+    var dataProvider: DataProvider? { get set }
     func fetch()
 }

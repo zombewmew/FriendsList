@@ -31,6 +31,7 @@
 		314A109C247587AA00DE3A1F /* FriendsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A109B247587AA00DE3A1F /* FriendsListPresenter.swift */; };
 		314A109F2475887B00DE3A1F /* UserProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A109E2475887B00DE3A1F /* UserProfileInteractor.swift */; };
 		314A10A12475888C00DE3A1F /* UserProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A10A02475888C00DE3A1F /* UserProfilePresenter.swift */; };
+		314CCD132481882000EC4568 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314CCD122481882000EC4568 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,6 +76,7 @@
 		314A109B247587AA00DE3A1F /* FriendsListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListPresenter.swift; sourceTree = "<group>"; };
 		314A109E2475887B00DE3A1F /* UserProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInteractor.swift; sourceTree = "<group>"; };
 		314A10A02475888C00DE3A1F /* UserProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePresenter.swift; sourceTree = "<group>"; };
+		314CCD122481882000EC4568 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				3144A1FA247D7CE9000EE372 /* DataProvider.swift */,
+				314CCD122481882000EC4568 /* DataManager.swift */,
 				3135EBAE2469F39300FCFA90 /* FriendsList.xcdatamodeld */,
 				3149EF252476940A00B1A229 /* UserModel.swift */,
 				31396574247FDF7000226AC6 /* TimeManagerData.swift */,
@@ -278,6 +281,7 @@
 				3149EF372476EBF900B1A229 /* FriendsListRouter.swift in Sources */,
 				3149EF392476F7BC00B1A229 /* UserProfileRouter.swift in Sources */,
 				3149EF3B247828EC00B1A229 /* FriendsListViewCell.swift in Sources */,
+				314CCD132481882000EC4568 /* DataManager.swift in Sources */,
 				3149EF262476940A00B1A229 /* UserModel.swift in Sources */,
 				314A109C247587AA00DE3A1F /* FriendsListPresenter.swift in Sources */,
 				3135EBA62469F39300FCFA90 /* AppDelegate.swift in Sources */,

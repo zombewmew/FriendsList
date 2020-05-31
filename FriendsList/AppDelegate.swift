@@ -13,19 +13,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    let dataProvider = DataProvider(modelName: "FriendsList")
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
         let friends = FriendsListRouter.createModule()
-
-        let navigationController = UINavigationController()
-        navigationController.viewControllers = [friends]
-
+        friends.dataProvider = dataProvider
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigationController
+        window?.rootViewController = UINavigationController.init(rootViewController: friends)
         window?.makeKeyAndVisible()
         
         return true
         
     }
 }
-
+    
