@@ -310,6 +310,7 @@ class UserProfileView: UIViewController {
         view.addSubview(coordinatesButton)
         view.addSubview(scrollView)
         scrollView.addSubview(tagCollection)
+        view.addSubview(friendsTable)
         
         addConstraints()
     }
@@ -369,6 +370,10 @@ class UserProfileView: UIViewController {
         tagCollection.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         tagCollection.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
         tagCollection.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0),
+        
+        friendsTable.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 8),
+        friendsTable.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0),
+        friendsTable.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0),
         
         /*tagLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
         tagLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0)*/
