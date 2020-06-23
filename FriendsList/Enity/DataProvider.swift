@@ -28,9 +28,6 @@ final class DataProvider {
         return container
     }()
     
-    //static var context = persistentContainer.viewContext
-    //lazy var context = persistentContainer.viewContext
-    
     func context() -> NSManagedObjectContext {
         return persistentContainer.viewContext
     }
@@ -70,17 +67,17 @@ final class DataProvider {
     
     func fetchData<T: NSManagedObject>(for entity: T.Type) -> [T] {
         let context = getContext()
-        // 6
+
         let request: NSFetchRequest<T>
         var fetchedResult = [T]()
-        // 7
+
         if #available(iOS 10.0, *) {
             request = entity.fetchRequest() as! NSFetchRequest<T>
         } else {
             let entityName = String(describing: entity)
             request = NSFetchRequest(entityName: entityName)
         }
-        // 8
+
         do {
             fetchedResult = try context.fetch(request)
             

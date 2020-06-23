@@ -22,14 +22,15 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
         AF.request(API_FRIENDS_LIST, method: .get).responseJSON { response in
             if response.data != nil {
                 do {
+                    //save to Core Data
                     let decodeData = try JSONDecoder().decode(Array<UserModel>.self, from: response.data!)
                     self.saveData(users: decodeData)
                     
+                    //get from Core Data
                     let decodedCoreData = self.fetchData()
-                    //self.presenter?.fetchedSuccess(friendModelArray: decodedCoreData)
+                    self.presenter?.fetchedSuccess(friendModelArray: decodedCoreData)
                     
-                    self.presenter?.fetchedSuccess(friendModelArray: decodeData)
-                    
+                    //self.presenter?.fetchedSuccess(friendModelArray: decodeData)
                     
                 } catch let error {
                      print(error)
@@ -39,19 +40,10 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
     }
     
     private func fetchData() -> [UserModel] {
-        //print(dataProvider!)
+        
         items = dataProvider!.fetchData(for: User.self)
         
-        //print(items)
-        //print(items[0].friends!.value(forKey: "id"))
-        return decodeCoreData(coreData: items)
-    }
-    
-    func decodeCoreData(coreData: [User])  -> [UserModel] {
-        let decodedArray: [UserModel] = []
-        
-        
-        return decodedArray
+        return DataManager.decodeСoreData(users: items)
     }
     
     func saveData(users: [UserModel]) {
