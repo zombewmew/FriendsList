@@ -56,12 +56,12 @@ final class DataProvider {
         let fetchUserRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
         let deleteUserRequest = NSBatchDeleteRequest(fetchRequest: fetchUserRequest)
         
-        /*let fetchFriendRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Friend")
-        let deleteFriendRequest = NSBatchDeleteRequest(fetchRequest: fetchFriendRequest)*/
+        let fetchFriendRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Friend")
+        let deleteFriendRequest = NSBatchDeleteRequest(fetchRequest: fetchFriendRequest)
         
         do {
             try context.execute(deleteUserRequest)
-            //try context.execute(deleteFriendRequest)
+            try context.execute(deleteFriendRequest)
         } catch let error as NSError {
             print("Clear context error \(error)")
         }

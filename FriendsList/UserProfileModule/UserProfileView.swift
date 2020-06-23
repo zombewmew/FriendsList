@@ -429,7 +429,6 @@ class UserProfileView: UIViewController {
 
 extension UserProfileView: PresenterToViewUserProfileProtocol {
     func showFriends(friendArray: Array<UserModel>) {
-        print(friendArray)
         self.friends = friendArray
         self.friendsTable.reloadData()
     }
