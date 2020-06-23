@@ -34,7 +34,6 @@ class FriendsListView: UIViewController, UITableViewDelegate {
         
         self.title = "Friends"
         
-        //print(dataProvider!)
         presenter?.dataProvider = dataProvider
         presenter?.startFetching()
 
@@ -73,6 +72,7 @@ class FriendsListView: UIViewController, UITableViewDelegate {
         let table = UITableView()
         table.backgroundColor = .white
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return table
     }()
         
@@ -90,12 +90,15 @@ class FriendsListView: UIViewController, UITableViewDelegate {
     }
     
     func addConstraints() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        NSLayoutConstraint.activate(friendsListConstraints)
     }
+    
+    lazy var friendsListConstraints: [NSLayoutConstraint] = [
+        tableView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 0),
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0)
+    ]
 
 }
 
@@ -122,7 +125,6 @@ extension FriendsListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FriendsListViewCell
         cell.user = friendArrayList[indexPath.row]
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return cell
     }
     
