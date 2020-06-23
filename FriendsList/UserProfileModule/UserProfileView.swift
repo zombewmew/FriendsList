@@ -14,6 +14,9 @@ class UserProfileView: UIViewController {
     var safeArea: UILayoutGuide!
     var presenter: ViewToPresenterUserProfileProtocol?
     var tags: [String] = []
+    var dataProvider: DataProvider?
+    var friends: [UserModel] = []
+    var friendsId: [FriendModel] = []
     
     var userData: UserModel? {
         didSet {
@@ -43,12 +46,14 @@ class UserProfileView: UIViewController {
             
             tags = userData!.tags.map { "#" + $0 }
             tagCollection.reloadData()
-
-
-
+            
+            friendsId = userData!.friends
+            friendsTable.reloadData()
             
         }
     }
+    
+//MARK: - Data's function
     
     @objc func goToEmail(sender: UIButton) {
         guard let email = sender.titleLabel?.text! else { return }
@@ -149,6 +154,20 @@ class UserProfileView: UIViewController {
 
         return dateResult
     }
+    
+//MARK: - Programmatically interface's elements
+    
+    private lazy var scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -201,6 +220,7 @@ class UserProfileView: UIViewController {
         label.font = .systemFont(ofSize: 14)
         label.textAlignment = .left
         label.numberOfLines = 0
+        label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -259,13 +279,13 @@ class UserProfileView: UIViewController {
         return button
     }()
     
-    private lazy var scrollView: UIScrollView = {
+    private lazy var horizontalScrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var tagCollection: UICollectionView = {
+    private lazy var tagCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -280,10 +300,15 @@ class UserProfileView: UIViewController {
     
     private lazy var friendsTable: UITableView = {
         let table = UITableView()
+        table.tableFooterView = UIView()
         table.backgroundColor = .white
+        table.isScrollEnabled = false
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
+    
+
+//MARK: - Load ans Setup view
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -292,25 +317,34 @@ class UserProfileView: UIViewController {
         self.title = userData?.name
         safeArea = view.layoutMarginsGuide
         
+        presenter?.dataProvider = dataProvider
+        presenter?.startFetchingFriendsById(idArray: friendsId)
+        
         setupView()
     }
     
     func setupView() {
-        view.addSubview(nameLabel)
-        view.addSubview(emailButton)
-        view.addSubview(ageLabel)
-        view.addSubview(companyLabel)
-        view.addSubview(phoneButton)
-        view.addSubview(adressLabel)
-        view.addSubview(aboutLabel)
-        view.addSubview(balanceLabel)
-        view.addSubview(eyeView)
-        view.addSubview(fruitLabel)
-        view.addSubview(dataLabel)
-        view.addSubview(coordinatesButton)
         view.addSubview(scrollView)
-        scrollView.addSubview(tagCollection)
-        view.addSubview(friendsTable)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(emailButton)
+        contentView.addSubview(ageLabel)
+        contentView.addSubview(companyLabel)
+        contentView.addSubview(phoneButton)
+        contentView.addSubview(adressLabel)
+        contentView.addSubview(aboutLabel)
+        contentView.addSubview(balanceLabel)
+        contentView.addSubview(eyeView)
+        contentView.addSubview(fruitLabel)
+        contentView.addSubview(dataLabel)
+        contentView.addSubview(coordinatesButton)
+        contentView.addSubview(horizontalScrollView)
+        horizontalScrollView.addSubview(tagCollection)
+        contentView.addSubview(friendsTable)
+        
+        friendsTable.delegate = self
+        friendsTable.dataSource = self
+        friendsTable.register(FriendsListViewCell.self, forCellReuseIdentifier: "cell")
         
         addConstraints()
     }
@@ -321,67 +355,71 @@ class UserProfileView: UIViewController {
     
     lazy var userProfileConstraints: [NSLayoutConstraint] = [
         
-        nameLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
-        nameLabel.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 8),
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+        
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
+        contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0),
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+        contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+        
+        nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+        nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
         
         emailButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-        emailButton.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 8),
+        emailButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
         
         ageLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
         ageLabel.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 16),
         
         phoneButton.topAnchor.constraint(equalTo: emailButton.bottomAnchor, constant: 8),
-        phoneButton.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 8),
+        phoneButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
         
         companyLabel.topAnchor.constraint(equalTo: phoneButton.bottomAnchor, constant: 8),
-        companyLabel.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 8),
+        companyLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
         
         adressLabel.topAnchor.constraint(equalTo: companyLabel.bottomAnchor, constant: 8),
-        adressLabel.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 8),
-        adressLabel.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -8),
+        adressLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+        adressLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
 
         aboutLabel.topAnchor.constraint(equalTo: adressLabel.bottomAnchor, constant: 8),
-        aboutLabel.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 8),
-        aboutLabel.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -8),
+        aboutLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+        aboutLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
         
         balanceLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-        balanceLabel.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -8),
+        balanceLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
         
         eyeView.heightAnchor.constraint(equalToConstant: 16),
         eyeView.widthAnchor.constraint(equalTo: eyeView.heightAnchor, multiplier: 1/1),
         eyeView.centerYAnchor.constraint(equalTo: emailButton.centerYAnchor),
-        eyeView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -8),
+        eyeView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
         
         fruitLabel.centerYAnchor.constraint(equalTo: emailButton.centerYAnchor),
         fruitLabel.rightAnchor.constraint(equalTo: eyeView.leftAnchor, constant: -8),
         
         dataLabel.centerYAnchor.constraint(equalTo: phoneButton.centerYAnchor),
-        dataLabel.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -8),
+        dataLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
         
         coordinatesButton.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 8),
-        coordinatesButton.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 8),
+        coordinatesButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
         
-        scrollView.heightAnchor.constraint(equalToConstant: 40),
-        scrollView.topAnchor.constraint(equalTo: coordinatesButton.bottomAnchor, constant: 8),
-        scrollView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 8),
-        scrollView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -8),
+        horizontalScrollView.heightAnchor.constraint(equalToConstant: 40),
+        horizontalScrollView.topAnchor.constraint(equalTo: coordinatesButton.bottomAnchor, constant: 8),
+        horizontalScrollView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+        horizontalScrollView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
         
-        tagCollection.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
-        tagCollection.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-        tagCollection.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
-        tagCollection.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0),
+        tagCollection.heightAnchor.constraint(equalTo: horizontalScrollView.heightAnchor),
+        tagCollection.widthAnchor.constraint(equalTo: horizontalScrollView.widthAnchor),
+        tagCollection.topAnchor.constraint(equalTo: horizontalScrollView.topAnchor, constant: 0),
+        tagCollection.leftAnchor.constraint(equalTo: horizontalScrollView.leftAnchor, constant: 0),
         
-        friendsTable.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 8),
-        friendsTable.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0),
-        friendsTable.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0),
-        
-        /*tagLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
-        tagLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0)*/
-        
-        /*tagView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
-        tagView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0),
-        tagView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: 0),
-        tagView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),*/
+        friendsTable.topAnchor.constraint(equalTo: horizontalScrollView.bottomAnchor, constant: 8),
+        friendsTable.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+        friendsTable.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
+        friendsTable.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         
     ]
 }
@@ -390,15 +428,35 @@ class UserProfileView: UIViewController {
 //MARK: - Protocols extensions
 
 extension UserProfileView: PresenterToViewUserProfileProtocol {
-    func onMovieResponseSuccess(movieModelArrayList: Array<UserModel>) {
-        
+    func showFriends(friendArray: Array<UserModel>) {
+        print(friendArray)
+        self.friends = friendArray
+        self.friendsTable.reloadData()
     }
     
-    func onMovieResponseFailed(error: String) {
-        print("error")
+    func showError(error: String) {
+        print("Error: \(error)")
     }
-    
+}
 
+extension UserProfileView: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return friends.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FriendsListViewCell
+        cell.user = friends[indexPath.row]
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if friends[indexPath.row].isActive {
+            presenter?.showUserProfileView(navigationController: navigationController!, user: friends[indexPath.row])
+        }
+    }
+    
 }
 
 extension UserProfileView: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {

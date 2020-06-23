@@ -12,25 +12,32 @@ protocol ViewToPresenterUserProfileProtocol: class {
     var view: PresenterToViewUserProfileProtocol? { get set }
     var interactor: PresenterToInteractorUserProfileProtocol? { get set }
     var router: PresenterToRouterUserProfileProtocol? { get set }
-    func startFetchingMovie()
-    func goToEmail(email: String)
+    var dataProvider: DataProvider? { get set }
+    
+    func startFetchingFriendsById(idArray: [FriendModel])
+    func showUserProfileView(navigationController: UINavigationController, user: UserModel)
 }
 
 protocol PresenterToViewUserProfileProtocol: class {
-    func onMovieResponseSuccess(movieModelArrayList:Array<UserModel>)
-    func onMovieResponseFailed(error: String)
+    func showFriends(friendArray: Array<UserModel>)
+    func showError(error: String)
 }
 
 protocol PresenterToRouterUserProfileProtocol: class {
-    static func createModule(data: UserModel)-> UserProfileView
+    var dataProvider: DataProvider? { get set }
+    static func createModule(data: UserModel) -> UserProfileView
+    func pushToUserProfileScreen(navigationConroller: UINavigationController, user: UserModel)
 }
 
 protocol PresenterToInteractorUserProfileProtocol: class {
-    var presenter:InteractorToPresenterUserProfileProtocol? { get set }
-    func fetch()
+    var dataProvider: DataProvider? { get set }
+    var presenter: InteractorToPresenterUserProfileProtocol? { get set }
+    
+    func fetchUsers(friendsId: [FriendModel])
 }
 
 protocol InteractorToPresenterUserProfileProtocol: class {
-    func movieFetchSuccess(movieList: Array<UserModel>)
-    func movieFetchFailed()
+    func friendsFetchSuccess(friendModelArray: Array<UserModel>)
+    func friendsFetchFailed(error: String)
+    
 }

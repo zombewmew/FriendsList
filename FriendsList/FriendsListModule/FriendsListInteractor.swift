@@ -25,8 +25,11 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
                     let decodeData = try JSONDecoder().decode(Array<UserModel>.self, from: response.data!)
                     self.saveData(users: decodeData)
                     
-                    self.fetchData()
+                    let decodedCoreData = self.fetchData()
+                    //self.presenter?.fetchedSuccess(friendModelArray: decodedCoreData)
+                    
                     self.presenter?.fetchedSuccess(friendModelArray: decodeData)
+                    
                     
                 } catch let error {
                      print(error)
@@ -35,9 +38,20 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
         }
     }
     
-    private func fetchData() {
+    private func fetchData() -> [UserModel] {
+        //print(dataProvider!)
         items = dataProvider!.fetchData(for: User.self)
-        print(items[0].friends!.value(forKey: "id"))
+        
+        //print(items)
+        //print(items[0].friends!.value(forKey: "id"))
+        return decodeCoreData(coreData: items)
+    }
+    
+    func decodeCoreData(coreData: [User])  -> [UserModel] {
+        let decodedArray: [UserModel] = []
+        
+        
+        return decodedArray
     }
     
     func saveData(users: [UserModel]) {

@@ -10,6 +10,10 @@ import UIKit
 
 class FriendsListRouter: PresenterToRouterProtocol {
     
+    var dataProvider: DataProvider?
+    
+    //let dataProvider = DataProvider(modelName: "FriendsList")
+    
     static func createModule() -> FriendsListView {
         
         let view = FriendsListView()
@@ -29,8 +33,12 @@ class FriendsListRouter: PresenterToRouterProtocol {
     }
     
     func pushToUserProfileScreen(navigationConroller navigationController: UINavigationController, user: UserModel) {
-        print(user)
+        
+        //let dataProvider: DataProvider?
+
         let userModule = UserProfileRouter.createModule(data: user)
+        userModule.dataProvider = dataProvider
+        
         navigationController.pushViewController(userModule, animated: true)
         
     }

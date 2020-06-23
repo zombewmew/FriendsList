@@ -19,7 +19,7 @@ class FriendsListView: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(dataProvider)
+        //print(dataProvider)
         
         //let context = dataProvider?.persistentContainer.viewContext
         
@@ -33,6 +33,8 @@ class FriendsListView: UIViewController, UITableViewDelegate {
         safeArea = view.layoutMarginsGuide
         
         self.title = "Friends"
+        
+        //print(dataProvider!)
         presenter?.dataProvider = dataProvider
         presenter?.startFetching()
 
@@ -120,7 +122,7 @@ extension FriendsListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FriendsListViewCell
         cell.user = friendArrayList[indexPath.row]
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return cell
     }
     

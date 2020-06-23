@@ -24,6 +24,7 @@ class FriendsListPresenter: ViewToPresenterProtocol {
     }
     
     func showUserProfileView(navigationController: UINavigationController, user: UserModel) {
+        router?.dataProvider = dataProvider
         router?.pushToUserProfileScreen(navigationConroller: navigationController, user: user)
     }
 
@@ -37,6 +38,5 @@ extension FriendsListPresenter: InteractorToPresenterProtocol{
     func fetchFailed() {
         view?.showError()
     }
-    
 }
 

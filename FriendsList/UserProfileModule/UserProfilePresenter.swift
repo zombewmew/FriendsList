@@ -9,6 +9,7 @@
 import UIKit
 
 class UserProfilePresenter: ViewToPresenterUserProfileProtocol {
+    var dataProvider: DataProvider?
 
     var view: PresenterToViewUserProfileProtocol?
     
@@ -16,33 +17,23 @@ class UserProfilePresenter: ViewToPresenterUserProfileProtocol {
     
     var router: PresenterToRouterUserProfileProtocol?
     
-    func startFetchingMovie() {
-        print("sdf")
+    func startFetchingFriendsById(idArray: [FriendModel]) {
+        interactor?.dataProvider = dataProvider
+        interactor?.fetchUsers(friendsId: idArray)
     }
     
-    func goToEmail(email: String) {
-        print(email)
-        if let url = URL(string: "mailto:\(email)") {
-          if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url)
-          } else {
-            UIApplication.shared.openURL(url)
-          }
-        }
+    func showUserProfileView(navigationController: UINavigationController, user: UserModel) {
+        router?.dataProvider = dataProvider
+        router?.pushToUserProfileScreen(navigationConroller: navigationController, user: user)
     }
-    
-    
 }
 
-extension UserProfilePresenter: InteractorToPresenterUserProfileProtocol{
-    func movieFetchSuccess(movieList: Array<UserModel>) {
-        print("")
+extension UserProfilePresenter: InteractorToPresenterUserProfileProtocol {
+    func friendsFetchSuccess(friendModelArray: Array<UserModel>) {
+        view?.showFriends(friendArray: friendModelArray)
     }
     
-    func movieFetchFailed() {
-        print("error")
+    func friendsFetchFailed(error: String) {
+        view?.showError(error: error)
     }
-    
-
-    
 }

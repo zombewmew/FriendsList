@@ -30,6 +30,7 @@ protocol PresenterToViewProtocol: class {
 }
 
 protocol PresenterToRouterProtocol: class {
+    var dataProvider: DataProvider? { get set }
     static func createModule()-> FriendsListView
     func pushToUserProfileScreen(navigationConroller: UINavigationController, user: UserModel)
 }

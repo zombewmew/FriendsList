@@ -10,6 +10,8 @@ import UIKit
 
 class UserProfileRouter: PresenterToRouterUserProfileProtocol {
     
+    var dataProvider: DataProvider?
+    
     static func createModule(data: UserModel) -> UserProfileView {
         
         let view = UserProfileView()
@@ -26,6 +28,13 @@ class UserProfileRouter: PresenterToRouterUserProfileProtocol {
         interactor.presenter = presenter
         
         return view
+    }
+    
+    func pushToUserProfileScreen(navigationConroller navigationController: UINavigationController, user: UserModel) {
+    
+        let userModule = UserProfileRouter.createModule(data: user)
+        userModule.dataProvider = dataProvider
         
+        navigationController.pushViewController(userModule, animated: true)
     }
 }
