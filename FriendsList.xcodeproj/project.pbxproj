@@ -14,8 +14,6 @@
 		3135EBB52469F39D00FCFA90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3135EBB32469F39D00FCFA90 /* LaunchScreen.storyboard */; };
 		3135EBC3246F307100FCFA90 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3135EBC1246F307100FCFA90 /* Alamofire.framework */; };
 		3135EBC4246F307100FCFA90 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3135EBC1246F307100FCFA90 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3135EBC5246F307100FCFA90 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3135EBC2246F307100FCFA90 /* SwiftyJSON.framework */; };
-		3135EBC6246F307100FCFA90 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3135EBC2246F307100FCFA90 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3144A1FB247D7CE9000EE372 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144A1FA247D7CE9000EE372 /* DataProvider.swift */; };
 		3149EF262476940A00B1A229 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3149EF252476940A00B1A229 /* UserModel.swift */; };
 		3149EF2B2476BC8500B1A229 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3149EF2A2476BC8500B1A229 /* Constants.swift */; };
@@ -40,7 +38,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3135EBC6246F307100FCFA90 /* SwiftyJSON.framework in Embed Frameworks */,
 				3135EBC4246F307100FCFA90 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -56,10 +53,8 @@
 		3135EBB12469F39D00FCFA90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3135EBB42469F39D00FCFA90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3135EBB62469F39D00FCFA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3135EBBF246F302C00FCFA90 /* SwiftyJSON.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftyJSON.framework.dSYM; path = Carthage/Build/iOS/SwiftyJSON.framework.dSYM; sourceTree = "<group>"; };
 		3135EBC0246F302C00FCFA90 /* Alamofire.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Alamofire.framework.dSYM; path = Carthage/Build/iOS/Alamofire.framework.dSYM; sourceTree = "<group>"; };
 		3135EBC1246F307100FCFA90 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		3135EBC2246F307100FCFA90 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		3144A1FA247D7CE9000EE372 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		3149EF252476940A00B1A229 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3149EF2A2476BC8500B1A229 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -82,7 +77,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3135EBC5246F307100FCFA90 /* SwiftyJSON.framework in Frameworks */,
 				3135EBC3246F307100FCFA90 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,9 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				3135EBC1246F307100FCFA90 /* Alamofire.framework */,
-				3135EBC2246F307100FCFA90 /* SwiftyJSON.framework */,
 				3135EBC0246F302C00FCFA90 /* Alamofire.framework.dSYM */,
-				3135EBBF246F302C00FCFA90 /* SwiftyJSON.framework.dSYM */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -247,7 +239,6 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
 			outputFileListPaths = (
 			);
