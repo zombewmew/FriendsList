@@ -16,6 +16,7 @@ protocol ViewToPresenterProtocol: class {
     var dataProvider: DataProvider? { get set }
     
     func startFetching()
+    func getCoreData()
     func showUserProfileView(navigationController: UINavigationController, user: UserModel)
 }
 
@@ -39,4 +40,5 @@ protocol PresenterToInteractorProtocol: class {
     var presenter: InteractorToPresenterProtocol? { get set }
     var dataProvider: DataProvider? { get set }
     func fetch()
+    func getData()
 }

@@ -19,15 +19,6 @@ class FriendsListView: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(dataProvider)
-        
-        //let context = dataProvider?.persistentContainer.viewContext
-        
-        /*guard let context = dataProvider?.persistentContainer.viewContext else {
-            return
-        }*/
-        
-        checkDataTime()
         
         self.view.backgroundColor = .white
         safeArea = view.layoutMarginsGuide
@@ -35,36 +26,56 @@ class FriendsListView: UIViewController, UITableViewDelegate {
         self.title = "Friends"
         
         presenter?.dataProvider = dataProvider
-        presenter?.startFetching()
-
+        
+        if isExpired() {
+            presenter?.startFetching()
+        } else {
+            presenter?.getCoreData()
+        }
+        
         setupTableView()
     }
     
-    func checkDataTime() {
+    func isExpired() -> Bool {
         
-        let op = def.string(forKey: "opened")
+        let op = def.string(forKey: "dataTime")
         if op != nil {
             let now = Date()
-
+            
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 
             if let dateExpired = dateFormatter.date(from: op!) {
                 if dateExpired < now {
-                    print("update data's time expired")
-                    def.set(Date().addingTimeInterval(300), forKey: "opened")
+                    print("update data's time")
+                    
+                    let date = Date().addingTimeInterval(30)
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                    let dateString = dateFormatter.string(from: date)
+                    
+                    def.set(dateString, forKey: "dataTime")
+                    return true
+                } else {
+                    print("data's time not expired yet")
+                    return false
                 }
             }
             
+            return false
+            
         } else {
+
             print("set data's time expired")
-            let date = Date().addingTimeInterval(300)
+            let date = Date().addingTimeInterval(30)
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             let dateString = dateFormatter.string(from: date)
             
-            def.set(dateString, forKey: "opened")
+            def.set(dateString, forKey: "dataTime")
+            
+            return true
         }
     }
 

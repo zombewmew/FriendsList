@@ -220,7 +220,6 @@ class UserProfileView: UIViewController {
         label.font = .systemFont(ofSize: 14)
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -417,9 +416,9 @@ class UserProfileView: UIViewController {
         tagCollection.leftAnchor.constraint(equalTo: horizontalScrollView.leftAnchor, constant: 0),
         
         friendsTable.topAnchor.constraint(equalTo: horizontalScrollView.bottomAnchor, constant: 8),
-        friendsTable.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
-        friendsTable.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
-        friendsTable.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+        friendsTable.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 0),
+        friendsTable.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 0),
+        friendsTable.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
         
     ]
 }

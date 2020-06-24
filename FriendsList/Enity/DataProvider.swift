@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Alamofire
 
 final class DataProvider {
 
@@ -63,7 +62,6 @@ final class DataProvider {
             print("Clear context error \(error)")
         }
     }
-    
     
     func fetchData<T: NSManagedObject>(for entity: T.Type) -> [T] {
         let context = getContext()

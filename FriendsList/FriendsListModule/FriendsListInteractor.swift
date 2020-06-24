@@ -15,8 +15,6 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
     
     var dataProvider: DataProvider?
     var presenter: InteractorToPresenterProtocol?
-
-    var items = [User]()
     
     func fetch() {
         AF.request(API_FRIENDS_LIST, method: .get).responseJSON { response in
@@ -27,10 +25,7 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
                     self.saveData(users: decodeData)
                     
                     //get from Core Data
-                    let decodedCoreData = self.fetchData()
-                    self.presenter?.fetchedSuccess(friendModelArray: decodedCoreData)
-                    
-                    //self.presenter?.fetchedSuccess(friendModelArray: decodeData)
+                    self.getData()
                     
                 } catch let error {
                      print(error)
@@ -39,11 +34,12 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
         }
     }
     
-    private func fetchData() -> [UserModel] {
+    func getData() {
         
-        items = dataProvider!.fetchData(for: User.self)
+        let items = dataProvider!.fetchData(for: User.self)
+        let decodedCoreData = DataManager.decodeСoreData(users: items)
         
-        return DataManager.decodeСoreData(users: items)
+        self.presenter?.fetchedSuccess(friendModelArray: decodedCoreData)
     }
     
     func saveData(users: [UserModel]) {

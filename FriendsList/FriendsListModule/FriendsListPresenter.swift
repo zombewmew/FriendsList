@@ -23,6 +23,11 @@ class FriendsListPresenter: ViewToPresenterProtocol {
         interactor?.fetch()
     }
     
+    func getCoreData() {
+        interactor?.dataProvider = dataProvider
+        interactor?.getData()
+    }
+    
     func showUserProfileView(navigationController: UINavigationController, user: UserModel) {
         router?.dataProvider = dataProvider
         router?.pushToUserProfileScreen(navigationConroller: navigationController, user: user)

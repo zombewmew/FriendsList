@@ -16,7 +16,6 @@
 		3135EBC4246F307100FCFA90 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3135EBC1246F307100FCFA90 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3135EBC5246F307100FCFA90 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3135EBC2246F307100FCFA90 /* SwiftyJSON.framework */; };
 		3135EBC6246F307100FCFA90 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3135EBC2246F307100FCFA90 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		31396575247FDF7000226AC6 /* TimeManagerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31396574247FDF7000226AC6 /* TimeManagerData.swift */; };
 		3144A1FB247D7CE9000EE372 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144A1FA247D7CE9000EE372 /* DataProvider.swift */; };
 		3149EF262476940A00B1A229 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3149EF252476940A00B1A229 /* UserModel.swift */; };
 		3149EF2B2476BC8500B1A229 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3149EF2A2476BC8500B1A229 /* Constants.swift */; };
@@ -61,7 +60,6 @@
 		3135EBC0246F302C00FCFA90 /* Alamofire.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Alamofire.framework.dSYM; path = Carthage/Build/iOS/Alamofire.framework.dSYM; sourceTree = "<group>"; };
 		3135EBC1246F307100FCFA90 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		3135EBC2246F307100FCFA90 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
-		31396574247FDF7000226AC6 /* TimeManagerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagerData.swift; sourceTree = "<group>"; };
 		3144A1FA247D7CE9000EE372 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		3149EF252476940A00B1A229 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3149EF2A2476BC8500B1A229 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 				314CCD122481882000EC4568 /* DataManager.swift */,
 				3135EBAE2469F39300FCFA90 /* FriendsList.xcdatamodeld */,
 				3149EF252476940A00B1A229 /* UserModel.swift */,
-				31396574247FDF7000226AC6 /* TimeManagerData.swift */,
 			);
 			path = Enity;
 			sourceTree = "<group>";
@@ -274,7 +271,6 @@
 				314A109F2475887B00DE3A1F /* UserProfileInteractor.swift in Sources */,
 				3149EF2D2476BFAD00B1A229 /* FriendsListProtocols.swift in Sources */,
 				3144A1FB247D7CE9000EE372 /* DataProvider.swift in Sources */,
-				31396575247FDF7000226AC6 /* TimeManagerData.swift in Sources */,
 				314A10A12475888C00DE3A1F /* UserProfilePresenter.swift in Sources */,
 				3149EF2F2476E64E00B1A229 /* UserProfileView.swift in Sources */,
 				3135EBAA2469F39300FCFA90 /* FriendsListView.swift in Sources */,
