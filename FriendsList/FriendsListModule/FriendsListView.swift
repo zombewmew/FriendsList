@@ -27,56 +27,13 @@ class FriendsListView: UIViewController, UITableViewDelegate {
         
         presenter?.dataProvider = dataProvider
         
-        if isExpired() {
+        if (presenter?.isDataTimeExpired())! {
             presenter?.startFetching()
         } else {
             presenter?.getCoreData()
         }
         
         setupTableView()
-    }
-    
-    func isExpired() -> Bool {
-        
-        let op = def.string(forKey: "dataTime")
-        if op != nil {
-            let now = Date()
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-
-            if let dateExpired = dateFormatter.date(from: op!) {
-                if dateExpired < now {
-                    print("update data's time")
-                    
-                    let date = Date().addingTimeInterval(30)
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                    let dateString = dateFormatter.string(from: date)
-                    
-                    def.set(dateString, forKey: "dataTime")
-                    return true
-                } else {
-                    print("data's time not expired yet")
-                    return false
-                }
-            }
-            
-            return false
-            
-        } else {
-
-            print("set data's time expired")
-            let date = Date().addingTimeInterval(30)
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-            let dateString = dateFormatter.string(from: date)
-            
-            def.set(dateString, forKey: "dataTime")
-            
-            return true
-        }
     }
 
     private lazy var tableView: UITableView = {

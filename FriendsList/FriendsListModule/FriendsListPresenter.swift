@@ -28,6 +28,10 @@ class FriendsListPresenter: ViewToPresenterProtocol {
         interactor?.getData()
     }
     
+    func isDataTimeExpired() -> Bool? {
+        return interactor?.isDataExpired()
+    }
+    
     func showUserProfileView(navigationController: UINavigationController, user: UserModel) {
         router?.dataProvider = dataProvider
         router?.pushToUserProfileScreen(navigationConroller: navigationController, user: user)

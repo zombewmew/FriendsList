@@ -17,6 +17,7 @@ protocol ViewToPresenterProtocol: class {
     
     func startFetching()
     func getCoreData()
+    func isDataTimeExpired() -> Bool?
     func showUserProfileView(navigationController: UINavigationController, user: UserModel)
 }
 
@@ -32,7 +33,7 @@ protocol PresenterToViewProtocol: class {
 
 protocol PresenterToRouterProtocol: class {
     var dataProvider: DataProvider? { get set }
-    static func createModule()-> FriendsListView
+    static func createModule() -> FriendsListView
     func pushToUserProfileScreen(navigationConroller: UINavigationController, user: UserModel)
 }
 
@@ -41,4 +42,5 @@ protocol PresenterToInteractorProtocol: class {
     var dataProvider: DataProvider? { get set }
     func fetch()
     func getData()
+    func isDataExpired() -> Bool
 }

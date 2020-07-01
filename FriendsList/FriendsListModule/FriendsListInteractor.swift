@@ -15,6 +15,7 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
     
     var dataProvider: DataProvider?
     var presenter: InteractorToPresenterProtocol?
+    let def = UserDefaults.standard
     
     func fetch() {
         AF.request(API_FRIENDS_LIST, method: .get).responseJSON { response in
@@ -77,6 +78,49 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
             }
             
             dataProvider?.saveContext(context: context)
+        }
+    }
+    
+    func isDataExpired() -> Bool {
+        
+        let op = def.string(forKey: "dataTime")
+        if op != nil {
+            let now = Date()
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+            if let dateExpired = dateFormatter.date(from: op!) {
+                if dateExpired < now {
+                    print("update data's time")
+                    
+                    let date = Date().addingTimeInterval(30)
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                    let dateString = dateFormatter.string(from: date)
+                    
+                    def.set(dateString, forKey: "dataTime")
+                    return true
+                } else {
+                    print("data's time not expired yet")
+                    return false
+                }
+            }
+            
+            return false
+            
+        } else {
+
+            print("set data's time expired")
+            let date = Date().addingTimeInterval(30)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            let dateString = dateFormatter.string(from: date)
+            
+            def.set(dateString, forKey: "dataTime")
+            
+            return true
         }
     }
     
