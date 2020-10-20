@@ -75,7 +75,9 @@ class FriendsListView: UIViewController, UITableViewDelegate {
 extension FriendsListView: PresenterToViewProtocol {
     func showFriend(friendArray: Array<UserModel>) {
         self.friendArrayList = friendArray
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func showError() {

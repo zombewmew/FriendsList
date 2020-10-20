@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import CoreData
 
 
@@ -18,7 +17,38 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
     let def = UserDefaults.standard
     
     func fetch() {
-        AF.request(API_FRIENDS_LIST, method: .get).responseJSON { response in
+        if let url = URL(string: API_FRIENDS_LIST) {
+            let session = URLSession(configuration: .default)
+        
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if data != nil {
+                    do {
+                        //save to Core Data
+                        let decodeData = try JSONDecoder().decode(Array<UserModel>.self, from: data!)
+                        self.saveData(users: decodeData)
+                        
+                        //get from Core Data
+                        self.getData()
+                        
+                    } catch let error {
+                         print(error)
+                    }
+                }
+                /*if error != nil {
+                    
+                    return
+                }
+                if let safeData = data {
+                    if let weather = self.parseJson(safeData) {
+                        print(self.delegate)
+                        self.delegate?.didUpdateWeather(self, weather: weather)
+                        print(weather)
+                    }
+                }*/
+            }
+            task.resume()
+        }
+        /*AF.request(API_FRIENDS_LIST, method: .get).responseJSON { response in
             if response.data != nil {
                 do {
                     //save to Core Data
@@ -32,7 +62,7 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
                      print(error)
                 }
             }
-        }
+        }*/
     }
     
     func getData() {

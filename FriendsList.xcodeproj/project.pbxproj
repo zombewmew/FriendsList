@@ -12,8 +12,6 @@
 		3135EBB02469F39300FCFA90 /* FriendsList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3135EBAE2469F39300FCFA90 /* FriendsList.xcdatamodeld */; };
 		3135EBB22469F39D00FCFA90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3135EBB12469F39D00FCFA90 /* Assets.xcassets */; };
 		3135EBB52469F39D00FCFA90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3135EBB32469F39D00FCFA90 /* LaunchScreen.storyboard */; };
-		3135EBC3246F307100FCFA90 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3135EBC1246F307100FCFA90 /* Alamofire.framework */; };
-		3135EBC4246F307100FCFA90 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3135EBC1246F307100FCFA90 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3144A1FB247D7CE9000EE372 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144A1FA247D7CE9000EE372 /* DataProvider.swift */; };
 		3149EF262476940A00B1A229 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3149EF252476940A00B1A229 /* UserModel.swift */; };
 		3149EF2B2476BC8500B1A229 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3149EF2A2476BC8500B1A229 /* Constants.swift */; };
@@ -30,20 +28,6 @@
 		314A10A12475888C00DE3A1F /* UserProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A10A02475888C00DE3A1F /* UserProfilePresenter.swift */; };
 		314CCD132481882000EC4568 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314CCD122481882000EC4568 /* DataManager.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		3135EBC7246F307100FCFA90 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				3135EBC4246F307100FCFA90 /* Alamofire.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3135EBA22469F39300FCFA90 /* FriendsList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendsList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +54,8 @@
 		314A109E2475887B00DE3A1F /* UserProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInteractor.swift; sourceTree = "<group>"; };
 		314A10A02475888C00DE3A1F /* UserProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePresenter.swift; sourceTree = "<group>"; };
 		314CCD122481882000EC4568 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		31EC2DC52524F81000F9C7A9 /* Alamofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Alamofire.h; path = Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire.h; sourceTree = "<group>"; };
+		31EC2DC62524F81800F9C7A9 /* Alamofire */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Alamofire; path = Carthage/Build/iOS/Alamofire.framework/Alamofire; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +63,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3135EBC3246F307100FCFA90 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +104,8 @@
 		3135EBBE246F302B00FCFA90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31EC2DC62524F81800F9C7A9 /* Alamofire */,
+				31EC2DC52524F81000F9C7A9 /* Alamofire.h */,
 				3135EBC1246F307100FCFA90 /* Alamofire.framework */,
 				3135EBC0246F302C00FCFA90 /* Alamofire.framework.dSYM */,
 			);
@@ -172,7 +159,6 @@
 				3135EB9E2469F39300FCFA90 /* Sources */,
 				3135EB9F2469F39300FCFA90 /* Frameworks */,
 				3135EBA02469F39300FCFA90 /* Resources */,
-				3135EBC7246F307100FCFA90 /* Embed Frameworks */,
 				3135EBC8246F30B000FCFA90 /* ShellScript */,
 			);
 			buildRules = (
@@ -191,7 +177,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = zombewnew;
 				TargetAttributes = {
 					3135EBA12469F39300FCFA90 = {
@@ -238,7 +224,6 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -316,6 +301,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -341,6 +327,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_VERIFY_BITCODE = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -376,6 +363,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -395,6 +383,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_VERIFY_BITCODE = NO;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -416,10 +405,14 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = FriendsList/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/Alamofire.framework",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zombewnew.FriendsList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -440,10 +433,14 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = FriendsList/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/Alamofire.framework",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zombewnew.FriendsList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
