@@ -34,35 +34,9 @@ class FriendsListInteractor: PresenterToInteractorProtocol {
                          print(error)
                     }
                 }
-                /*if error != nil {
-                    
-                    return
-                }
-                if let safeData = data {
-                    if let weather = self.parseJson(safeData) {
-                        print(self.delegate)
-                        self.delegate?.didUpdateWeather(self, weather: weather)
-                        print(weather)
-                    }
-                }*/
             }
             task.resume()
         }
-        /*AF.request(API_FRIENDS_LIST, method: .get).responseJSON { response in
-            if response.data != nil {
-                do {
-                    //save to Core Data
-                    let decodeData = try JSONDecoder().decode(Array<UserModel>.self, from: response.data!)
-                    self.saveData(users: decodeData)
-                    
-                    //get from Core Data
-                    self.getData()
-                    
-                } catch let error {
-                     print(error)
-                }
-            }
-        }*/
     }
     
     func getData() {
